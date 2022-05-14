@@ -1,13 +1,31 @@
-import { View, FlatList, Text,Pressable} from 'react-native';
+import { View, FlatList, Text,Pressable, StyleSheet, Dimensions} from 'react-native';
 import React, { useState } from 'react';
 
 
-export default function ListaContatos({width}){
-    
-    const [contatos, setContatos]= useState([{nome:"joao", telefone:12}])
-
-
-    const styles = {
+export default function ListaContatos({width, contatos}){   
+    return(
+        <>
+        <View style={styles.view}>
+            <Text style={styles.title}>Lista de Contatos</Text>
+            {contatos.map((value, index)=>{
+                return(
+                    <Text key={index} style={styles.item}>{value.nome + "   " + value.telefone}</Text>
+                )
+            })}
+        </View>
+        </>
+    )  
+}
+const width = Dimensions.get('screen').width;
+const styles =  StyleSheet.create({
+        view:{
+            marginTop:50,
+            alignItems:'center'
+        },  
+        title:{
+            fontSize:20,
+            fontWeight:'500'
+        },      
         item: {
             alignSelf:'center',
             padding: 10,
@@ -34,19 +52,4 @@ export default function ListaContatos({width}){
             letterSpacing: 0.25,
             color: 'white',
         }
-    };
-
-    function onButtonPress(){
-        add({nome:nome, telefone:tel})
-    }
-
-    return(
-        <>
-        <View style={styles.view}>
-            
-        </View>
-        </>
-    )
-
-    
-}
+});

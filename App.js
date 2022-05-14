@@ -1,23 +1,26 @@
-import { StatusBar, StyleSheet, Text, SafeAreaView, Dimensions, FlatList} from 'react-native';
+import { StatusBar, StyleSheet, Text, SafeAreaView, Dimensions, FlatList, ScrollView} from 'react-native';
 import FormContact from './src/views/home/index';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import ListaContatos from './src/views/lista';
 import { render } from 'react-dom';
 
 export default function App() {
   const width = Dimensions.get('screen').width;
-  const [contatos, setContatos] = useState([{}])
+  const [contatos, setContatos] = useState([])
 
   function adicionarContato(contato){
-    setContatos({...contatos, ...contato})
+    const novoContato = contato
+    console.log(contatos)
+    setContatos(contatos=>[...contatos, {...novoContato}])
   }
-
-
 
   return (
      <SafeAreaView style={styles.container}>
-      <StatusBar/>      
-      <FormContact width={width} contatos={contatos} add={adicionarContato}></FormContact>
+      <ScrollView>
+          <StatusBar/>      
+          <FormContact add={adicionarContato}></FormContact>
+          <ListaContatos contatos={contatos}></ListaContatos>
+      </ScrollView>
      </SafeAreaView>
   );
 }
