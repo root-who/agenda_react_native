@@ -4,12 +4,10 @@ import { useNavigation } from "@react-navigation/native";
 import ListaContatos from '../lista';
 
 export default function FormContact({add}){
-
     const [nome, setNome] = useState('');
     const [tel, setTel] = useState('');
     const [contatos, setContatos]= useState([{}])
 
-    
     function onButtonPress(){
         const novo = {nome:nome, telefone:tel}
         add(novo)
@@ -38,8 +36,6 @@ export default function FormContact({add}){
                 onPress={onButtonPress} >
                 <Text style={styles.buttontext}>Adicionar</Text>
             </Pressable>
-            
-            
       </View>
         </>
     )
