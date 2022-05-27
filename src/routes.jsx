@@ -3,17 +3,18 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import ListaContatos from "./views/lista";
 import FormContact from "./views/home";
+import { SafeAreaView, StatusBar } from "react-native-web";
 
 
-const AppStack = createStackNavigator();
+const Stack = createStackNavigator();
 
-export default function Routes(contatos, width, adicionar) {
+export default function Routes (contatos, width, adicionar){
   return (
     <NavigationContainer>
-      <AppStack.Navigator>
-        <AppStack.Screen name="FormContact" component={FormContact} />
-        <AppStack.Screen name="ListaContatos" component={ListaContatos} />
-      </AppStack.Navigator>
+      <Stack.Navigator>
+        <Stack.Screen name="Lista de Contatos" component={ListaContatos}/>
+        <Stack.Screen name="FormContact" component={FormContact}  options={{ contatos : contatos }} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

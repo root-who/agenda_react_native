@@ -1,34 +1,74 @@
-import { View, FlatList, Text,Pressable, StyleSheet, Dimensions} from 'react-native';
+import { View, FlatList, Text,Pressable, StyleSheet, Dimensions, ScrollView} from 'react-native';
 import React, { useState } from 'react';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 
 
-export default function ListaContatos({width, contatos}){   
+export default function ListaContatos({navigation, route, contatos}){   
+
+    
+
+    function addContato(){
+        navigation.navigate('FormContact')
+    }
+
     return(
         <>
-        <View style={styles.view}>
+        <View style={styles.container}>
             <Text style={styles.title}>Lista de Contatos</Text>
-            {contatos.map((value, index)=>{
-                return(
-                    <Text key={index} style={styles.item}>{value.nome + "   " + value.telefone}</Text>
-                )
-            })}
+            <ScrollView style={styles.view}>
+                <View style={styles.listView}>
+                    {contatos.map((value, index)=>{
+                        return(
+                            <View style={styles.container_contact} key={index}>
+                                <Text  style={styles.item}>{"Nome: " +value.nome}</Text>
+                                <Text style={styles.item}>{"Telefone: " + value.telefone}</Text>
+                            </View>
+                        )
+                    })}
+                </View>
+            </ScrollView>
+            <View style={styles.buttonAddView}>
+                <Pressable onPress={addContato}>
+                    <FontAwesome5 name='plus-circle' color='black' size={50}/>
+                </Pressable>
+            </View>
         </View>
         </>
     )  
 }
 const width = Dimensions.get('screen').width;
+const height = Dimensions.get('screen').height;
 const styles =  StyleSheet.create({
+        container:{
+        },
+        buttonAddView:{
+            alignItems: 'flex-end',
+            marginTop:20,
+            marginRight:30
+            
+        },
         view:{
-            marginTop:50,
-            alignItems:'center'
-        },  
+            height:height-250
+        },
+        listView:{
+            width:width,
+
+            marginTop:20,
+        }, 
+        container_contact:{
+            paddingLeft:30,
+            paddingRight:30,
+            justifyContent:'space-between',
+            flexDirection:'row'
+        }, 
         title:{
+            marginTop:30,
             fontSize:20,
-            fontWeight:'500'
+            fontWeight:'500',
+            alignSelf:'center'
         },      
         item: {
             alignSelf:'center',
-            padding: 10,
             fontSize: 18,
             height: 44,
         },

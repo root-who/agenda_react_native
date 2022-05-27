@@ -3,7 +3,7 @@ import { Text, TextInput, View, Dimensions, Pressable,FlatList, StyleSheet} from
 import { useNavigation } from "@react-navigation/native";
 import ListaContatos from '../lista';
 
-export default function FormContact({add}){
+export default function FormContact({add, navigation, route}){
     const [nome, setNome] = useState('');
     const [tel, setTel] = useState('');
     const [contatos, setContatos]= useState([{}])
@@ -13,6 +13,7 @@ export default function FormContact({add}){
         add(novo)
         setNome("")
         setTel("")
+        navigation.goBack()
     }
     return(
         <>
@@ -21,17 +22,16 @@ export default function FormContact({add}){
             <TextInput
                 style={styles.input}
                 value={nome}
-                onSubmitEditing={true}
                 placeholder="Digite um nome"
                 onChangeText={novoNome => setNome(novoNome)}
             />
             <TextInput
                 style={styles.input}
                 value={tel}
-                onSubmitEditing={true}
                 placeholder="Digite o numero do telefone"
                 onChangeText={novoNum => setTel(novoNum)}
             />
+            
             <Pressable style={styles.button}
                 onPress={onButtonPress} >
                 <Text style={styles.buttontext}>Adicionar</Text>
